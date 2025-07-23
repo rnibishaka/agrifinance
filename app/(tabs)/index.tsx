@@ -1,75 +1,55 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function TabsHome() {
+    const router = useRouter();
+    return (
+        <ScrollView className="flex-1 bg-white px-4 pt-8">
+            <Text className="text-center text-gray-500 mb-1">Welcome to</Text>
+            <Text className="text-center text-2xl font-bold text-green-700 mb-1">AgriFinance</Text>
+            <Text className="text-center text-gray-500 mb-4">Choose a service to get started</Text>
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+            {/* Loan Services Card */}
+            <View className="bg-white rounded-xl shadow pb-3 mb-5">
+                <Image
+                    source={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
+                    className="w-full h-44 rounded-lg mb-3"
+                    resizeMode="cover"
+                />
+                <Text className="font-bold text-lg mb-1 px-3">Loan Services</Text>
+                <Text className="text-gray-500 mb-3 text-sm px-3">
+                    Access agricultural loans with transparent terms and easy application process
+                </Text>
+                <View className="flex justify-center items-center w-full px-3">
+                    <TouchableOpacity className="bg-green-700 rounded-lg py-2 px-3 mb-3 w-full" onPress={() => { router.push('/loan-services'); }}>
+                        <Text className="text-white text-center font-semibold">Access Loans</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            {/* Project Services Card */}
+            <View className="bg-white rounded-xl shadow  pb-3 mb-5">
+                <Image
+                    source={{ uri: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80' }}
+                    className="w-full h-48 rounded-lg mb-3"
+                    resizeMode="cover"
+                />
+                <Text className="font-bold text-lg mb-1 px-3">Project Services</Text>
+                <Text className="text-gray-500 mb-3 text-sm px-3">
+                    Plan, track, and manage your farming projects with goals and activities
+                </Text>
+                <View className="flex justify-center items-center w-full px-3">
+                    <TouchableOpacity className="bg-blue-600 rounded-lg py-2 w-full px-3" onPress={() => { router.push('/(tabs)/project-services'); }}>
+                        <Text className="text-white text-center font-semibold">Manage Projects</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </ScrollView>
+    );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export const screen = {
+    options: {
+        headerShown: false,
+    },
+};
