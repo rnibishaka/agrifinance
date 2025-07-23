@@ -1,5 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const summary = [
   { label: 'Users', value: 128, sub: '98 active', color: 'bg-green-50', text: 'text-green-700' },
@@ -34,7 +35,7 @@ const recentProjects = [
   { name: 'Poultry Expansion', user: 'Jane Smith', progress: 30, color: 'bg-blue-300' },
   { name: 'Irrigation System', user: 'Robert Johnson', progress: 100, color: 'bg-green-500' },
 ];
-
+const router = useRouter();
 export default function AdminDashboard() {
   const totalStatus = loanStats.status.reduce((a, b) => a + b.value, 0);
   return (
@@ -96,7 +97,7 @@ export default function AdminDashboard() {
               <Text className="text-xs text-gray-500">{u.date}</Text>
             </View>
           ))}
-          <TouchableOpacity className="mt-2 border border-green-700 rounded-full py-2 items-center">
+          <TouchableOpacity className="mt-2 border border-green-700 rounded-full py-2 items-center" onPress={() => router.push('/admin-users')}>
             <Text className="text-green-700 font-semibold">View All Users</Text>
           </TouchableOpacity>
         </View>
@@ -150,4 +151,4 @@ export const screen = {
   options: {
     headerShown: false,
   },
-}; 
+};
