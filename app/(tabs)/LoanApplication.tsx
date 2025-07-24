@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const loanTypes = [
   { label: 'Farming Equipment Loan', icon: <FontAwesome5 name="tractor" size={16} color="#15803d" /> },
@@ -28,39 +29,46 @@ export default function LoanApplication({ navigation }) {
     if (!purpose) {
       setPurposeError('Loan purpose is required');
       return false;
-    }
+      }
+
     setPurposeError('');
     return true;
   };
-
+    const router = useRouter();
   // Step 1: Loan Details
   const renderStep1 = () => (
     <View>
-      <Text className="text-lg font-bold text-green-700 text-center mb-2">Loan Application</Text>
-      <View className="w-full h-2 bg-gray-200 rounded-full mb-2">
+          <View className='flex flex-row items-center py-6'>
+              <TouchableOpacity onPress={() => {
+                  router.back();
+        }}
+      ><Text><MaterialIcons name='arrow-back' size={18} color="#9CA3AF" /></Text></TouchableOpacity>
+          <Text className="text-lg font-bold text-green-700 text-center mb-2 flex-1">Loan Application</Text>
+      </View>
+      <View className="w-full h-2 bg-gray-200 rounded-full mb-6">
         <View className="h-2 bg-green-700 rounded-full" style={{ width: '33%' }} />
       </View>
       <Text className="text-center text-xs text-gray-400 mb-2">Step 1 of 3</Text>
       <Text className="text-green-700 font-bold mb-1">Step 1: Loan Details</Text>
-      <Text className="text-gray-500 mb-3">Tell us about the loan you need</Text>
-      <Text className="font-semibold mb-2">Select Loan Type</Text>
+      <Text className="text-gray-500 mb-5">Tell us about the loan you need</Text>
+      <Text className="font-bold mb-3">Select Loan Type</Text>
       <View className="flex-row flex-wrap mb-3 gap-2">
         {loanTypes.map((type) => (
           <TouchableOpacity
             key={type.label}
-            className={`flex-row items-center px-3 py-2 rounded-lg border mb-2 mr-2 ${loanType === type.label ? 'bg-green-100 border-green-700' : 'bg-gray-100 border-gray-300'}`}
+            className={`flex-row items-center px-3 py-4 rounded-lg border mb-2 mr-2 ${loanType === type.label ? 'bg-green-800 border-green-800' : 'bg-gray-100 border-gray-300'}`}
             onPress={() => setLoanType(type.label)}
           >
             {type.icon}
-            <Text className={`ml-2 font-semibold ${loanType === type.label ? 'text-green-700' : 'text-gray-700'}`}>{type.label}</Text>
+            <Text className={`ml-2 font-semibold ${loanType === type.label ? 'text-white' : 'text-gray-700'}`}>{type.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
       <Text className="font-semibold mb-1">Loan Amount ($)</Text>
-      <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-2 bg-white mb-3">
+      <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-4 bg-white mb-3">
         <MaterialIcons name="attach-money" size={18} color="#9CA3AF" />
         <TextInput
-          className="flex-1 text-base ml-2"
+          className="flex-1 text-base ml-2 p-0"
           placeholder="3000"
           value={amount}
           onChangeText={setAmount}
@@ -92,13 +100,19 @@ export default function LoanApplication({ navigation }) {
   // Step 2: Repayment Terms
   const renderStep2 = () => (
     <View>
-      <Text className="text-lg font-bold text-green-700 text-center mb-2">Loan Application</Text>
-      <View className="w-full h-2 bg-gray-200 rounded-full mb-2">
+      <View className='flex flex-row items-center py-6'>
+              <TouchableOpacity onPress={() => {
+                  setStep(1);
+        }}
+      ><Text><MaterialIcons name='arrow-back' size={18} color="#9CA3AF" /></Text></TouchableOpacity>
+          <Text className="text-lg font-bold text-green-700 text-center mb-2 flex-1">Loan Application</Text>
+      </View>
+      <View className="w-full h-2 bg-gray-200 rounded-full mb-6">
         <View className="h-2 bg-green-700 rounded-full" style={{ width: '66%' }} />
       </View>
       <Text className="text-center text-xs text-gray-400 mb-2">Step 2 of 3</Text>
       <Text className="text-green-700 font-bold mb-1">Step 2: Repayment Terms</Text>
-      <Text className="text-gray-500 mb-3">Set your repayment preferences</Text>
+      <Text className="text-gray-500 mb-6">Set your repayment preferences</Text>
       <Text className="font-semibold mb-1">Term (months)</Text>
       <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-2 bg-white mb-3">
         <MaterialIcons name="date-range" size={18} color="#9CA3AF" />
@@ -133,7 +147,7 @@ export default function LoanApplication({ navigation }) {
         />
       </View>
       <View className="flex-row justify-between mt-4">
-        <TouchableOpacity className="flex-1 bg-gray-200 rounded-full py-3 mr-2" onPress={() => setStep(1)}>
+        <TouchableOpacity className="bg-gray-200 rounded-full py-3 px-10 mr-2" onPress={() => setStep(1)}>
           <Text className="text-gray-700 text-center font-semibold text-base">Back</Text>
         </TouchableOpacity>
         <TouchableOpacity className="flex-1 bg-green-700 rounded-full py-3 ml-2" onPress={() => setStep(3)}>
@@ -146,13 +160,19 @@ export default function LoanApplication({ navigation }) {
   // Step 3: Review & Submit
   const renderStep3 = () => (
     <View>
-      <Text className="text-lg font-bold text-green-700 text-center mb-2">Loan Application</Text>
-      <View className="w-full h-2 bg-gray-200 rounded-full mb-2">
+     <View className='flex flex-row items-center py-6'>
+              <TouchableOpacity onPress={() => {
+                  setStep(2);
+        }}
+      ><Text><MaterialIcons name='arrow-back' size={18} color="#9CA3AF" /></Text></TouchableOpacity>
+          <Text className="text-lg font-bold text-green-700 text-center mb-2 flex-1">Loan Application</Text>
+      </View>
+      <View className="w-full h-2 bg-gray-200 rounded-full mb-6">
         <View className="h-2 bg-green-700 rounded-full" style={{ width: '100%' }} />
       </View>
       <Text className="text-center text-xs text-gray-400 mb-2">Step 3 of 3</Text>
       <Text className="text-green-700 font-bold mb-1">Step 3: Review & Submit</Text>
-      <Text className="text-gray-500 mb-3">Please review your application details</Text>
+      <Text className="text-gray-500 mb-6">Please review your application details</Text>
       {/* Loan Details Card */}
       <View className="bg-gray-50 rounded-xl shadow p-4 mb-4 border border-gray-100">
         <View className="flex-row items-center mb-2">
@@ -214,7 +234,7 @@ export default function LoanApplication({ navigation }) {
         By submitting this application, you confirm that all information provided is accurate and complete.
       </Text>
       <View className="flex-row justify-between mt-2">
-        <TouchableOpacity className="flex-1 bg-gray-200 rounded-full py-3 mr-2" onPress={() => setStep(2)}>
+        <TouchableOpacity className="bg-gray-200 rounded-full py-3 px-10 mr-2" onPress={() => setStep(2)}>
           <Text className="text-gray-700 text-center font-semibold text-base">Back</Text>
         </TouchableOpacity>
         <TouchableOpacity className="flex-1 bg-green-700 rounded-full py-3 ml-2">
@@ -231,4 +251,4 @@ export default function LoanApplication({ navigation }) {
       {step === 3 && renderStep3()}
     </ScrollView>
   );
-} 
+}

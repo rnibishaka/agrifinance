@@ -30,7 +30,7 @@ export default function LoginScreen() {
 
             {/* Email Input */}
             <View className="w-full mb-4">
-                <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-2 bg-white">
+                <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-1 bg-white">
                     <EnvelopeIcon size={20} color="#9CA3AF" className="mr-2" />
                     <TextInput
                         className="flex-1 text-base"
@@ -46,7 +46,7 @@ export default function LoginScreen() {
 
             {/* Password Input */}
             <View className="w-full mb-4">
-                <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-2 bg-white">
+                <View className="flex-row items-center border border-gray-300 rounded-md px-3 py-1 bg-white">
                     <LockClosedIcon size={20} color="#9CA3AF" className="mr-2" />
                     <TextInput
                         className="flex-1 text-base"
@@ -65,7 +65,7 @@ export default function LoginScreen() {
 
             {/* Login Button */}
             <TouchableOpacity
-                className={`w-full bg-green-700 rounded-full py-3 mb-3 ${loading ? 'opacity-60' : ''}`}
+                className={`w-full bg-green-700 rounded-2xl py-3 mb-3 ${loading ? 'opacity-60' : ''}`}
                 onPress={handleLogin}
                 disabled={loading}
             >
@@ -76,10 +76,8 @@ export default function LoginScreen() {
                 )}
             </TouchableOpacity>
 
-            {/* Admin Login Option */}
-            <TouchableOpacity className="mb-3" onPress={() => router.push('/admin-login')}>
-                <Text className="text-blue-700 text-center text-sm font-semibold">Login as Admin</Text>
-            </TouchableOpacity>
+
+
 
             {/* Forgot Password */}
             <TouchableOpacity className="mb-6" onPress={() => { }}>
@@ -91,6 +89,9 @@ export default function LoginScreen() {
                 Don't have an account?{' '}
                 <Text className="text-green-700 font-semibold">Sign Up</Text>
             </Text>
+            <TouchableOpacity className="mt-20" onPress={() => router.push('/admin-login')}>
+                <Text className="text-blue-700 text-center text-sm font-semibold">Login as Admin</Text>
+            </TouchableOpacity>
         </View>
     );
 }
