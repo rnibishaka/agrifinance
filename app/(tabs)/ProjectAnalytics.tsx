@@ -43,25 +43,25 @@ export default function ProjectAnalytics() {
         <View className="bg-white rounded-xl shadow p-4 mb-4 border border-gray-100">
           <Text className="font-bold text-base mb-4">Project Progress</Text>
           <View className="bg-gray-50 rounded-xl p-2 items-center">
-            <Svg width={220} height={90}>
+            <Svg width={250} height={220}>
               {/* Y axis labels */}
               {[0, 1, 2, 3].map(i => (
                 <SvgText
                   key={i}
-                  x={20}
-                  y={20 + i * 20}
+                  x={40}
+                  y={40 + i * 40}
                   fontSize="11"
                   fill="#888"
                   textAnchor="end"
                 >
-                  {66 - i * 16}
+                  {600 - i * 16}
                 </SvgText>
               ))}
               {/* Dots for each project */}
               {progressData.map((val, i) => (
                 <G key={i}>
-                  <Circle cx={70 + i * 60} cy={20 + (65 - val) * 0.3} r={6} fill="#2563eb" />
-                  <SvgText x={70 + i * 60} y={80} fontSize="12" fill="#222" textAnchor="middle">{progressLabels[i]}</SvgText>
+                  <Circle cx={70 + i * 60} cy={40 + (65 - val) * 2} r={6} fill="#2563eb" />
+                  <SvgText x={70 + i * 60} y={180} fontSize="12" fill="#222" textAnchor="middle">{progressLabels[i]}</SvgText>
                 </G>
               ))}
             </Svg>
@@ -70,8 +70,8 @@ export default function ProjectAnalytics() {
         {/* Goal Status Distribution Pie Chart */}
         <View className="bg-white rounded-xl shadow p-4 mb-4 border border-gray-100">
           <Text className="font-bold text-base mb-4">Goal Status Distribution</Text>
-          <View className="flex-row items-center">
-            <Svg width={120} height={120}>
+          <View className="flex-row items-center justify-between">
+            <Svg width={120} height={120} className='mt-20'>
               {pieSlices}
             </Svg>
             <View className="ml-4">
@@ -140,4 +140,4 @@ export default function ProjectAnalytics() {
       </View>
     </ScrollView>
   );
-} 
+}

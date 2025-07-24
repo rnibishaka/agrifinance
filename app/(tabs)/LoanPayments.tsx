@@ -20,8 +20,8 @@ export default function LoanPayments() {
   return (
     <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }} showsVerticalScrollIndicator={true}>
       <View className="px-3 pt-5">
-        <Text className="text-xl font-bold mb-1">Welcome, Farmer</Text>
-        <Text className="text-gray-500 mb-3">Access agricultural financing with ease</Text>
+        <Text className="text-xl font-bold mb-2">Welcome, Farmer</Text>
+        <Text className="text-gray-500 mb-6">Access agricultural financing with ease</Text>
         <View className="bg-white rounded-xl shadow p-4 border border-gray-100">
           <Text className="font-bold text-base mb-4">Payment Schedule</Text>
           <View className="flex-row justify-between mb-2">

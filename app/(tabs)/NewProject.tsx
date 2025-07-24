@@ -1,6 +1,7 @@
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const projectTypes = [
     { label: 'Crop Farming', icon: <FontAwesome5 name="seedling" size={16} color="#2563eb" /> },
@@ -40,11 +41,18 @@ export default function NewProject({ navigation }) {
             if (navigation && navigation.goBack) navigation.goBack();
         }, 1500);
     };
-
+    const router = useRouter();
     return (
-        <ScrollView className="flex-1 bg-white px-4 pt-6">
-            <Text className="text-xl font-bold text-blue-700 text-center mb-2">New Project</Text>
-            <View className="bg-blue-100 rounded-lg p-3 mb-4">
+        <ScrollView className="flex-1 bg-white px-4 pt-6 pb-10">
+
+            <View className='flex flex-row items-center py-6'>
+              <TouchableOpacity onPress={() => {
+                  router.back();
+        }}
+      ><Text><MaterialIcons name='arrow-back' size={18} color="#9CA3AF" /></Text></TouchableOpacity>
+         <Text className="flex-1 text-xl font-bold text-blue-700 text-center mb-2">New Project</Text>
+      </View>
+            <View className="bg-blue-100 rounded-lg px-3 py-6 mb-4">
                 <Text className="text-xs text-blue-900">Create a new agricultural project to track your farming activities, set goals, and monitor progress.</Text>
             </View>
             {/* Basic Information */}
@@ -60,7 +68,7 @@ export default function NewProject({ navigation }) {
             </View>
             {errors.name && <Text className="text-red-500 text-xs mb-2">{errors.name}</Text>}
             <Text className="font-semibold mb-1">Project Type</Text>
-            <TouchableOpacity className="flex-row items-center border border-gray-300 rounded-md px-3 py-2 bg-white mb-3" onPress={() => setShowTypeDropdown(!showTypeDropdown)}>
+            <TouchableOpacity className="flex-row items-center border border-gray-300 rounded-md px-3 py-4 bg-white mb-3" onPress={() => setShowTypeDropdown(!showTypeDropdown)}>
                 {projectTypes.find(t => t.label === type)?.icon}
                 <Text className="flex-1 text-base ml-2">{type}</Text>
                 <MaterialIcons name={showTypeDropdown ? 'expand-less' : 'expand-more'} size={18} color="#9CA3AF" />
@@ -144,6 +152,7 @@ export default function NewProject({ navigation }) {
                     <Text className="text-green-700 text-center font-semibold">Project created successfully!</Text>
                 </View>
             )}
+            <View className='py-5'><Text></Text></View>
         </ScrollView>
     );
 }

@@ -29,7 +29,7 @@ export default function LoanServicesScreen() {
     return (
         <View className="flex-1 bg-gray-50">
             {/* Header Bar */}
-            <View className="bg-green-700 pt-10 pb-3 px-4 flex-row items-center justify-between rounded-b-2xl shadow">
+            <View className="bg-green-700 pt-10 pb-3 px-4 flex-row items-center justify-between shadow">
                 <Text className="text-lg font-semibold text-white">Loan Services</Text>
                 <View className="flex-row space-x-4">
                     <TouchableOpacity>
@@ -81,18 +81,20 @@ export default function LoanServicesScreen() {
                 <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 32 }} showsVerticalScrollIndicator={true}>
                     {/* Welcome and Loan Status */}
                     <View className="px-3 pt-5">
-                        <Text className="text-xl font-bold mb-1">Welcome, Farmer</Text>
-                        <Text className="text-gray-500 mb-3">Access agricultural financing with ease</Text>
-                        <View className="bg-white rounded-xl shadow p-4 mb-4 border border-gray-100">
-                            <View className="flex-row items-center justify-between mb-2">
+                        <Text className="text-2xl font-bold mb-1">Welcome, Farmer</Text>
+                        <Text className="text-gray-400 mb-4">Access agricultural financing with ease</Text>
+                        <View className="bg-white rounded-xl shadow p-6 mb-4 border border-gray-100">
+                            <View className="flex-row items-center justify-between mb-4">
                                 <Text className="font-semibold text-base">Loan Status</Text>
                                 <Text className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Active</Text>
                             </View>
+                            <View className='h-1 w-full border border-gray-200 mb-3'></View>
                             <View className="flex-row justify-between mb-2">
                                 <View>
                                     <Text className="text-xs text-gray-400">Current Balance</Text>
                                     <Text className="font-bold text-lg">$5,000</Text>
                                 </View>
+
                                 <View>
                                     <Text className="text-xs text-gray-400">Next Payment</Text>
                                     <Text className="font-bold text-lg">$250</Text>
@@ -102,19 +104,20 @@ export default function LoanServicesScreen() {
                                     <Text className="font-bold text-lg">Aug 15</Text>
                                 </View>
                             </View>
-                            <View className="mb-2">
+                            <View className='h-1 w-full border border-gray-200 mb-6 mt-4'></View>
+                            <View className="mb-4">
                                 <Text className="text-xs text-gray-400 mb-1">Repayment Progress</Text>
                                 <View className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-1">
-                                    <View className="h-2 bg-green-600 rounded-full" style={{ width: '25%' }} />
+                                    <View className="h-2 bg-green-600 rounded-full" style={{ width: '45%' }} />
                                 </View>
-                                <Text className="text-xs text-green-700 font-semibold">25%</Text>
+                                <Text className="text-xs text-green-700 font-semibold">45%</Text>
                             </View>
-                            <View className="flex-row space-x-2 mt-2">
-                                <TouchableOpacity className="flex-1 flex-row items-center justify-center bg-gray-100 rounded-lg py-2">
+                            <View className="flex-row space-x-5 justify-between mt-2">
+                                <TouchableOpacity className="flex-1 flex-row items-center justify-center bg-transparent rounded-2xl py-2 px-0 border mr-1">
                                     <MaterialIcons name="receipt-long" size={18} color="#15803d" style={{ marginRight: 6 }} />
                                     <Text className="text-green-700 font-semibold">Payment S...</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity className="flex-1 flex-row items-center justify-center bg-green-700 rounded-lg py-2">
+                                <TouchableOpacity className="flex-1 flex-row items-center justify-center bg-green-700 rounded-lg py-2 mr-1">
                                     <MaterialIcons name="payments" size={18} color="white" style={{ marginRight: 6 }} />
                                     <Text className="text-white font-semibold">Make Pay...</Text>
                                 </TouchableOpacity>
@@ -123,17 +126,19 @@ export default function LoanServicesScreen() {
                     </View>
 
                     {/* Apply for a New Loan */}
-                    <View className="bg-white rounded-xl shadow p-4 mx-3 mb-4 border border-gray-100">
-                        <Text className="font-bold text-base mb-1">Apply for a New Loan</Text>
-                        <Text className="text-gray-500 mb-3 text-sm">Quick and transparent agricultural loan application process</Text>
+                    <View className="bg-white rounded-xl shadow py-4 mx-3 mb-4 border border-gray-100">
+                        <View className='p-4'>
+                            <Text className="font-bold text-base mb-1">Apply for a New Loan</Text>
+                            <Text className="text-gray-500 mb-3 text-sm">Quick and transparent agricultural loan{"\n"}application process</Text>
+                        </View>
                         <Image
                             source={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
-                            className="w-full h-32 rounded-lg mb-3"
+                            className="w-full h-48 rounded-lg mb-3"
                             resizeMode="cover"
                         />
-                        <View className="flex-row justify-center">
+                        <View className="flex-row justify-center items-end w-full">
 
-                            <TouchableOpacity className="flex-row items-center justify-center bg-green-700 rounded-full px-6 py-2" style={{ minWidth: 140 }} onPress={() => { router.push('/(tabs)/LoanApplication'); }}>
+                            <TouchableOpacity className="flex-row items-center justify-end bg-green-700 rounded-full px-6 py-2" style={{ minWidth: 140 }} onPress={() => { router.push('/(tabs)/LoanApplication'); }}>
                                 <Ionicons name="add-circle-outline" size={20} color="white" style={{ marginRight: 6 }} />
                                 <Text className="text-white font-bold text-base">Apply Now</Text>
                             </TouchableOpacity>
@@ -146,7 +151,7 @@ export default function LoanServicesScreen() {
                         <View key={product.title} className="bg-white rounded-xl shadow p-4 mb-4 mx-3 border border-gray-100">
                             <Text className="font-bold text-base mb-1">{product.title}</Text>
                             <Text className="text-gray-500 mb-3 text-sm">{product.description}</Text>
-                            <View className="flex-row items-center mb-3 space-x-4">
+                            <View className="flex-col items-start mb-3 space-y-2">
                                 <View className="flex-row items-center space-x-1">
                                     <MaterialIcons name="attach-money" size={18} color="#15803d" />
                                     <Text className="text-gray-700 text-sm">{product.amount}</Text>
@@ -164,7 +169,7 @@ export default function LoanServicesScreen() {
                                 <TouchableOpacity className="flex-1 items-center justify-center bg-white border border-green-700 rounded-full py-2 mr-2" style={{ minWidth: 110 }}>
                                     <Text className="text-green-700 font-semibold">View Details</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity className="flex-1 items-center justify-center bg-green-700 rounded-full py-2 ml-2" style={{ minWidth: 90 }}>
+                                <TouchableOpacity className="flex-1 items-center justify-center bg-green-700 rounded-full py-2 ml-2" style={{ minWidth: 90 }} onPress={() => { router.push('/(tabs)/LoanApplication') }}>
                                     <Text className="text-white font-semibold">Apply</Text>
                                 </TouchableOpacity>
                             </View>

@@ -80,7 +80,7 @@ export default function ProjectServices() {
   return (
     <View className="flex-1 bg-gray-50">
       {/* Header Bar */}
-      <View className="bg-blue-700 pt-10 pb-3 px-4 flex-row items-center justify-between rounded-b-2xl shadow">
+      <View className="bg-blue-700 pt-10 pb-3 px-4 flex-row items-center justify-between shadow">
         <Text className="text-lg font-semibold text-white">Project Services</Text>
         <View className="flex-row space-x-4">
           <TouchableOpacity>

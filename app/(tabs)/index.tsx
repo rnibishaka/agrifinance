@@ -28,7 +28,7 @@ export default function TabsHome() {
             </View>
 
             {/* Project Services Card */}
-            <View className="bg-white rounded-xl shadow  pb-3 mb-5">
+            <View className="bg-white rounded-xl pb-3 mb-5">
                 <Image
                     source={{ uri: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80' }}
                     className="w-full h-48 rounded-lg mb-3"
