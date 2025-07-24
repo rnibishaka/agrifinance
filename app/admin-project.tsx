@@ -39,6 +39,7 @@ export default function AdminProject() {
     const [editProject, setEditProject] = useState<Project | null>(null);
     const [editValues, setEditValues] = useState<Partial<Project>>({});
     const [statusDropdown, setStatusDropdown] = useState(false);
+    const [editErrors, setEditErrors] = useState<{ [k: string]: string }>({});
 
     const filteredProjects = initialProjects.filter(p => {
         const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) || p.owner.toLowerCase().includes(search.toLowerCase());
@@ -48,14 +49,26 @@ export default function AdminProject() {
     const totalPages = Math.ceil(filteredProjects.length / rowsPerPage);
     const pagedProjects = filteredProjects.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
+    const validateEdit = () => {
+        const errs: { [k: string]: string } = {};
+        if (!editValues.name) errs.name = 'Project name is required';
+        if (!editValues.owner) errs.owner = 'Owner is required';
+        if (!editValues.start) errs.start = 'Start date is required';
+        if (!editValues.status) errs.status = 'Status is required';
+        setEditErrors(errs);
+        return Object.keys(errs).length === 0;
+    };
+
     const handleSave = () => {
         if (!editProject) return;
+        if (!validateEdit()) return;
         const idx = initialProjects.findIndex(p => p.name === editProject.name);
         if (idx !== -1) {
             initialProjects[idx] = { ...editProject, ...editValues } as Project;
         }
         setEditProject(null);
         setEditValues({});
+        setEditErrors({});
         setModalVisible(false);
     };
 
@@ -127,7 +140,7 @@ export default function AdminProject() {
                                 <Text className="w-28 px-2 text-gray-800 text-xs">{p.start}</Text>
                                 <Text className="w-28 px-2 text-gray-800 text-xs">{p.end}</Text>
                                 <View className="w-24 px-2">
-                                    <Text className={`px-2 py-0.5 rounded-full text-xs font-semibold text-center ${statusColors[p.status].bg} ${statusColors[p.status].text}`}>{p.status}</Text>
+                                    <Text className={`px-2 py-0.5 rounded-full text-xs font-semibold text-center ${statusColors[p.status as 'Active' | 'Completed' | 'On Hold'].bg} ${statusColors[p.status as 'Active' | 'Completed' | 'On Hold'].text}`}>{p.status}</Text>
                                 </View>
                                 <View className="w-32 px-2 flex-row items-center">
                                     <View className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden mr-2">
@@ -179,27 +192,30 @@ export default function AdminProject() {
                                 <View className="mb-3">
                                     <Text className="text-xs text-gray-500 mb-1">Project Name</Text>
                                     <TextInput
-                                        className="border border-gray-300 rounded px-3 py-2"
+                                        className={`border ${editErrors.name ? 'border-red-500' : 'border-gray-300'} rounded px-3 py-2`}
                                         value={editValues.name || ''}
                                         onChangeText={v => setEditValues(ev => ({ ...ev, name: v }))}
                                     />
+                                    {editErrors.name && <Text className="text-red-500 text-xs mt-1">{editErrors.name}</Text>}
                                 </View>
                                 <View className="mb-3">
                                     <Text className="text-xs text-gray-500 mb-1">Owner</Text>
                                     <TextInput
-                                        className="border border-gray-300 rounded px-3 py-2"
+                                        className={`border ${editErrors.owner ? 'border-red-500' : 'border-gray-300'} rounded px-3 py-2`}
                                         value={editValues.owner || ''}
                                         onChangeText={v => setEditValues(ev => ({ ...ev, owner: v }))}
                                     />
+                                    {editErrors.owner && <Text className="text-red-500 text-xs mt-1">{editErrors.owner}</Text>}
                                 </View>
                                 <View className="mb-3 flex-row space-x-2">
                                     <View className="flex-1">
                                         <Text className="text-xs text-gray-500 mb-1">Start Date</Text>
                                         <TextInput
-                                            className="border border-gray-300 rounded px-3 py-2"
+                                            className={`border ${editErrors.start ? 'border-red-500' : 'border-gray-300'} rounded px-3 py-2`}
                                             value={editValues.start || ''}
                                             onChangeText={v => setEditValues(ev => ({ ...ev, start: v }))}
                                         />
+                                        {editErrors.start && <Text className="text-red-500 text-xs mt-1">{editErrors.start}</Text>}
                                     </View>
                                     <View className="flex-1">
                                         <Text className="text-xs text-gray-500 mb-1">End Date</Text>
@@ -213,7 +229,7 @@ export default function AdminProject() {
                                 <View className="mb-3">
                                     <Text className="text-xs text-gray-500 mb-1">Status</Text>
                                     <TouchableOpacity
-                                        className="border border-gray-300 rounded px-3 py-2 flex-row items-center justify-between"
+                                        className={`border ${editErrors.status ? 'border-red-500' : 'border-gray-300'} rounded px-3 py-2 flex-row items-center justify-between`}
                                         onPress={() => setStatusDropdown(!statusDropdown)}
                                         activeOpacity={0.8}
                                     >
@@ -236,6 +252,7 @@ export default function AdminProject() {
                                             ))}
                                         </View>
                                     )}
+                                    {editErrors.status && <Text className="text-red-500 text-xs mt-1">{editErrors.status}</Text>}
                                 </View>
                                 <View className="mb-6">
                                     <Text className="text-xs text-gray-500 mb-1">Progress (%)</Text>
@@ -247,7 +264,7 @@ export default function AdminProject() {
                                     />
                                 </View>
                                 <View className="flex-row justify-end space-x-2">
-                                    <TouchableOpacity onPress={() => { setModalVisible(false); setEditProject(null); setStatusDropdown(false); }} className="px-5 py-2 bg-gray-100 rounded-full">
+                                    <TouchableOpacity onPress={() => { setModalVisible(false); setEditProject(null); setStatusDropdown(false); setEditErrors({}); }} className="px-5 py-2 bg-gray-100 rounded-full">
                                         <Text className="text-gray-700 font-semibold">Cancel</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={handleSave} className="px-5 py-2 bg-blue-700 rounded-full">

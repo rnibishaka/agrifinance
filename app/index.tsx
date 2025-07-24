@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View, ActivityIndicator } from 'react-native';
-import { EyeIcon, EnvelopeIcon, LockClosedIcon } from 'react-native-heroicons/outline';
 import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { EnvelopeIcon, EyeIcon, LockClosedIcon } from 'react-native-heroicons/outline';
 
 export default function LoginScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const router = useRouter();
 
+    const isValidEmail = (email: string) => /.+@.+\..+/.test(email);
+
     const handleLogin = () => {
+        setError('');
+        if (!email || !password) {
+            setError('Please enter email and password');
+            return;
+        }
+        if (!isValidEmail(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
@@ -62,7 +74,7 @@ export default function LoginScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
-
+            {error ? <Text className="text-red-500 text-xs mb-2 text-center">{error}</Text> : null}
             {/* Login Button */}
             <TouchableOpacity
                 className={`w-full bg-green-700 rounded-2xl py-3 mb-3 ${loading ? 'opacity-60' : ''}`}
